@@ -1,0 +1,92 @@
+/* InterpretationCard.css */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  animation: fadeIn 0.4s ease forwards;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.card-nickname {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.card-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.65;
+}
+
+.card-text {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--text);
+  word-break: keep-all;
+  margin-bottom: 14px;
+}
+
+.card-like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(26, 19, 16, 0.06);
+  transition: all var(--transition);
+}
+
+.card-like-btn:hover {
+  background: rgba(255, 169, 49, 0.15);
+  color: var(--accent-dark);
+}
+
+.card-like-btn.liked {
+  background: rgba(255, 169, 49, 0.18);
+  color: var(--accent-dark);
+}
+
+.card-like-btn.liked .heart-icon {
+  animation: heartBeat 0.35s ease;
+}
+
+.heart-icon {
+  font-size: 0.9rem;
+  display: inline-block;
+}

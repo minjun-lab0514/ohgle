@@ -1,0 +1,106 @@
+/* ==============================================
+   Ohgle – Global Styles
+   ============================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --bg: #F7F2EC;
+  --bg-card: #EDE6DB;
+  --bg-card-hover: #E5DDD0;
+  --text: #1A1310;
+  --text-muted: #7A6A5E;
+  --accent: #FFA931;
+  --accent-dark: #E8931A;
+  --accent-light: #FFD080;
+  --white: #FFFFFF;
+  --border: rgba(26, 19, 16, 0.12);
+  --shadow: 0 4px 24px rgba(26, 19, 16, 0.08);
+  --shadow-lg: 0 12px 40px rgba(26, 19, 16, 0.14);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-serif: 'Gowun Batang', 'Georgia', serif;
+  --font-sans: 'Noto Sans KR', -apple-system, sans-serif;
+  --transition: 0.2s ease;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.35); }
+  60%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.3s ease forwards;
+}

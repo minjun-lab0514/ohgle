@@ -1,0 +1,69 @@
+/* QuoteDisplay.css */
+.quote-display {
+  text-align: center;
+  padding: 60px 24px 48px;
+  animation: fadeIn 0.7s ease forwards;
+}
+
+.quote-date {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.quote-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 680px;
+  margin: 0 auto 20px;
+  word-break: keep-all;
+  position: relative;
+}
+
+.quote-mark {
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--accent-light);
+  font-family: Georgia, serif;
+  display: block;
+  margin-bottom: -16px;
+}
+
+.quote-author {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.quote-author::before {
+  content: '— ';
+}
+
+.quote-divider {
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 2px;
+  margin: 32px auto 0;
+}

@@ -1,0 +1,103 @@
+/* NicknameModal.css */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 19, 16, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-box {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  animation: scaleIn 0.28s ease;
+}
+
+.modal-icon {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  display: block;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.modal-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 0.95rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  margin-bottom: 16px;
+}
+
+.modal-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255, 169, 49, 0.15);
+}
+
+.modal-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.modal-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.modal-submit:hover:not(:disabled) {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.modal-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.modal-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-error {
+  font-size: 0.8rem;
+  color: #d32f2f;
+  margin-top: -10px;
+  margin-bottom: 12px;
+}
