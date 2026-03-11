@@ -17,6 +17,14 @@ export default function NicknameModal({ onSubmit }) {
       setError('닉네임은 12자 이내로 입력해주세요.');
       return;
     }
+    
+    // 한글(완성형), 영문, 숫자만 허용 (특수문자, 띄어쓰기, 자음/모음 단독 불가)
+    const isValid = /^[가-힣a-zA-Z0-9]+$/.test(trimmed);
+    if (!isValid) {
+      setError('닉네임은 한글, 영문, 숫자만 사용할 수 있습니다.');
+      return;
+    }
+
     onSubmit(trimmed);
   }
 
