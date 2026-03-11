@@ -49,13 +49,13 @@ export default function QuoteDisplay({ quote }) {
             className={`lang-btn ${lang === 'ko' ? 'active' : ''}`}
             onClick={() => { setLang('ko'); localStorage.setItem('ohgle_lang', 'ko'); }}
           >
-            A
+            한글
           </button>
           <button 
             className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
             onClick={() => { setLang('en'); localStorage.setItem('ohgle_lang', 'en'); }}
           >
-            a
+            EN
           </button>
         </div>
       )}

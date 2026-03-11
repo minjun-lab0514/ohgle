@@ -1,23 +1,25 @@
-// scripts/migrate-add-english.js
-// Firestore quotes 컬렉션에 영어 명언(en) 및 영어 저자(author_en) 필드를 추가합니다.
+// ============================================================
+// 🌐 Ohgle 명언 영어 번역 추가 스크립트
+// 사용법: 터미널에서 → node migrate-add-english.js
+// ============================================================
 
-import { initializeApp, cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import { createRequire } from 'module';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, doc, updateDoc, orderBy, query } from 'firebase/firestore';
 
-const require = createRequire(import.meta.url);
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const firebaseConfig = {
+  apiKey: "AIzaSyA3XW_yeKrxDwQi5xifGJGSzmphy5yDfsc",
+  authDomain: "ohgle-eed2d.firebaseapp.com",
+  projectId: "ohgle-eed2d",
+  storageBucket: "ohgle-eed2d.firebasestorage.app",
+  messagingSenderId: "42398178632",
+  appId: "1:42398178632:web:0c01d2f26ee368b054a77d",
+  measurementId: "G-PNE7R0XNR5",
+};
 
-// serviceAccountKey.json 파일을 루트에 넣어주세요
-const serviceAccount = require(join(__dirname, '..', 'serviceAccountKey.json'));
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-initializeApp({ credential: cert(serviceAccount) });
-const db = getFirestore();
-
-// 사용자가 제공하는 영어 데이터를 여기에 채워넣으면 됩니다.
-// index 순서대로 배열을 구성합니다.
+// ✅ 영어 번역 (index 순서대로 0~19)
 const englishData = [
   {
     // 1. 헨리 포드
@@ -122,31 +124,37 @@ const englishData = [
 ];
 
 async function migrate() {
-  console.log('영어 명언 데이터 마이그레이션 시작...');
-  const quotesRef = db.collection('quotes');
-  const snapshot = await quotesRef.orderBy('index').get();
+  console.log('🚀 마이그레이션 시작...');
+
+  const q = query(collection(db, 'quotes'), orderBy('index'));
+  const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
-    console.log('명언 데이터가 없습니다.');
-    process.exit(0);
+    console.error('❌ Firestore에 명언 데이터가 없습니다.');
+    return;
   }
 
-  const batch = db.batch();
-  let count = 0;
+  const docs = snapshot.docs;
+  console.log(`📚 명언 ${docs.length}개 발견`);
 
-  snapshot.docs.forEach((doc, idx) => {
-    if (idx < englishData.length) {
-      batch.update(doc.ref, englishData[idx]);
-      count++;
+  for (let i = 0; i < docs.length; i++) {
+    const docRef = doc(db, 'quotes', docs[i].id);
+    const data = englishData[i];
+
+    if (!data) {
+      console.warn(`⚠️  index ${i}에 해당하는 영어 데이터 없음, 건너뜀`);
+      continue;
     }
-  });
 
-  await batch.commit();
-  console.log(`✅ ${count}개 명언에 영어 데이터 추가 완료!`);
-  process.exit(0);
+    await updateDoc(docRef, {
+      en: data.en,
+      author_en: data.author_en,
+    });
+
+    console.log(`✅ [${i}] ${docs[i].data().text?.slice(0, 20)}... → 완료`);
+  }
+
+  console.log('\n🎉 마이그레이션 완료! Firestore에 en, author_en 필드가 추가되었습니다.');
 }
 
-migrate().catch((err) => {
-  console.error('❌ 마이그레이션 실패:', err);
-  process.exit(1);
-});
+migrate().catch(console.error);
