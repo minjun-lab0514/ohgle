@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -41,12 +41,17 @@ export default function App() {
     setShowNicknameModal(true);
   }
 
-  async function handleSubmitInterpretation(text) {
-    if (!quoteId || !nickname) return;
+  async function handleSubmitInterpretation(rawText) {
+    const text = rawText.trim();
+    const cleanNickname = nickname.trim();
+    
+    if (submitting || !text || text.length > 500) return;
+    if (!quoteId || !cleanNickname) return;
+    
     setSubmitting(true);
     try {
       await addDoc(collection(db, 'quotes', quoteId, 'interpretations'), {
-        nickname,
+        nickname: cleanNickname,
         text,
         likes: 0,
         likedBy: [],

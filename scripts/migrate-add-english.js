@@ -1,3 +1,4 @@
+/* global process */
 // scripts/migrate-add-english.js
 // Firestore quotes 컬렉션에 영어 명언(en) 및 영어 저자(author_en) 필드를 추가합니다.
 

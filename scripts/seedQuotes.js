@@ -1,3 +1,4 @@
+/* global process */
 // scripts/seedQuotes.js
 // Firebase Admin SDK로 초기 명언 데이터를 Firestore에 업로드하는 스크립트
 // 사용법:

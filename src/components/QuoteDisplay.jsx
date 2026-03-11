@@ -1,5 +1,5 @@
 // src/components/QuoteDisplay.jsx
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './QuoteDisplay.css';
 
 const DAYS_KO = ['일', '월', '화', '수', '목', '금', '토'];
@@ -18,12 +18,6 @@ export default function QuoteDisplay({ quote }) {
 
   // quote.en 필드가 있으면 토글 표시 여부
   const hasEnglish = Boolean(quote.en && quote.author_en);
-
-  function toggleLang() {
-    const newLang = lang === 'ko' ? 'en' : 'ko';
-    setLang(newLang);
-    localStorage.setItem('ohgle_lang', newLang);
-  }
 
   // 표시할 데이터 결정
   const displayQuote = lang === 'en' && hasEnglish ? quote.en : quote.text;
