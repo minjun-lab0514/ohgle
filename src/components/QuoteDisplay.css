@@ -67,3 +67,37 @@
   border-radius: 2px;
   margin: 32px auto 0;
 }
+
+/* Language Toggle */
+.quote-lang-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.lang-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all var(--transition);
+}
+
+.lang-btn:hover {
+  background: rgba(26, 19, 16, 0.04);
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
