@@ -119,7 +119,7 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        © 2025 Ohgle · 오늘의 명언, 당신의 해석
+        © {new Date().getFullYear()} Ohgle · 오늘의 명언, 당신의 해석
       </footer>
 
       {showNicknameModal && (
