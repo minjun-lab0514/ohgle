@@ -40,9 +40,20 @@
 }
 
 .card-nickname {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text);
+}
+
+.card-google-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  color: var(--accent);
+  opacity: 0.8;
 }
 
 .card-time {
