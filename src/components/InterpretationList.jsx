@@ -5,7 +5,7 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import InterpretationCard from './InterpretationCard';
 import './InterpretationList.css';
 
-export default function InterpretationList({ quoteId, deviceId }) {
+export default function InterpretationList({ quoteId }) {
   const [interpretations, setInterpretations] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -68,7 +68,6 @@ export default function InterpretationList({ quoteId, deviceId }) {
               key={item.id}
               interpretation={item}
               quoteId={quoteId}
-              deviceId={deviceId}
             />
           ))}
         </div>

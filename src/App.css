@@ -53,6 +53,21 @@
 }
 .header-nickname-edit:hover { opacity: 1; }
 
+.header-login-btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.header-login-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* ---- Main content ---- */
 .main {
   flex: 1;

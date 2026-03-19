@@ -1,7 +1,8 @@
 // src/components/InterpretationCard.jsx
-import { useState } from 'react';
-import { db } from '../firebase';
+import { useState, useEffect } from 'react';
 import { doc, updateDoc, arrayUnion, arrayRemove, increment } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 import './InterpretationCard.css';
 
 function getInitial(nickname) {
@@ -22,15 +23,33 @@ function timeAgo(date) {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 }
 
-export default function InterpretationCard({ interpretation, quoteId, deviceId }) {
+export default function InterpretationCard({ interpretation, quoteId }) {
+  const { user, requireAuth } = useAuth();
   const { id, nickname, text, likes = 0, likedBy = [], createdAt } = interpretation;
-  const isLiked = likedBy.includes(deviceId);
+
+  const isLiked = user ? likedBy.includes(user.uid) : false;
   const [optimisticLiked, setOptimisticLiked] = useState(isLiked);
   const [optimisticLikes, setOptimisticLikes] = useState(likes);
   const [animating, setAnimating] = useState(false);
 
-  async function handleLike() {
-    const ref = doc(db, 'quotes', quoteId, 'interpretations', id);
+  // 로그인/로그아웃 시 서버 상태로 리셋
+  useEffect(() => {
+    const liked = user ? likedBy.includes(user.uid) : false;
+    setOptimisticLiked(liked);
+    setOptimisticLikes(likes);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.uid]);
+
+  function handleLikeClick() {
+    if (!user) {
+      requireAuth(null);
+      return;
+    }
+    doLike();
+  }
+
+  async function doLike() {
+    if (!user) return;
     const newLiked = !optimisticLiked;
 
     setOptimisticLiked(newLiked);
@@ -42,12 +61,12 @@ export default function InterpretationCard({ interpretation, quoteId, deviceId }
     }
 
     try {
+      const ref = doc(db, 'quotes', quoteId, 'interpretations', id);
       await updateDoc(ref, {
         likes: increment(newLiked ? 1 : -1),
-        likedBy: newLiked ? arrayUnion(deviceId) : arrayRemove(deviceId),
+        likedBy: newLiked ? arrayUnion(user.uid) : arrayRemove(user.uid),
       });
     } catch (err) {
-      // 실패 시 롤백
       setOptimisticLiked(!newLiked);
       setOptimisticLikes((prev) => prev + (newLiked ? -1 : 1));
       console.error('좋아요 업데이트 실패:', err);
@@ -70,7 +89,7 @@ export default function InterpretationCard({ interpretation, quoteId, deviceId }
 
       <button
         className={`card-like-btn${optimisticLiked ? ' liked' : ''}`}
-        onClick={handleLike}
+        onClick={handleLikeClick}
         aria-label={`좋아요 ${optimisticLikes}개`}
       >
         <span className={`heart-icon${animating ? ' liked' : ''}`}>
