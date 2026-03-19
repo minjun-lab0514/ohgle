@@ -35,12 +35,22 @@
 }
 
 .header-nickname-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   background: var(--accent);
   color: var(--white);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 12px;
+}
+
+.header-google-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .header-nickname-edit {
